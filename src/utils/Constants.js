@@ -13,7 +13,7 @@ export const API_RESUME_SKILLS = `${API_BASE}/resume/skills`;
 export const API_RESUME_EDUCATION = `${API_BASE}/resume/education`;
 
 //Mapping Constants
-export const GOOGLE_MAPS_API_KEY = "AIzaSyAk_bN5yfkLuUzptVXIHWs59YdFmI_TjAc";
+export const GOOGLE_MAPS_API_KEY = process.env.REACT_APP_GOOGLE_API_KEY;
 export const DEFAULT_CENTER = { lat: 33.749, lng: -84.388 };
 export const GRANULARITY_CUTOFF = 8;
 export const DISTANCE_FROM_CITY = 200; /*miles*/

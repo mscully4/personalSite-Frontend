@@ -34,3 +34,4 @@ yarn-error.log*
 build
 *.pem
 .vscode
+.env
