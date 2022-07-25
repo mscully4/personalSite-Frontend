@@ -1,6 +1,5 @@
 // API Constants
-export const API_BASE =
-  "https://29no0ai34k.execute-api.us-west-2.amazonaws.com/prod";
+export const API_BASE = "https://api.michaeljscully.com";
 
 export const API_TRAVEL_DESTINATIONS = `${API_BASE}/travel/destinations`;
 export const API_TRAVEL_PLACES = `${API_BASE}/travel/places`;
