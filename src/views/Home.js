@@ -5,6 +5,7 @@ import Navigation from "../components/Navigation";
 import Popup from "../components/Popup";
 import { API_HOME_PHOTOS } from "../utils/Constants";
 import { getRandomSubarray } from "../utils/Formulas";
+import preval from "preval.macro";
 
 const NUMBER_OF_PHOTOS = 40;
 
@@ -58,6 +59,9 @@ class Home extends React.Component {
         <Navigation theme={theme} />
         <div className={classes.gallery}>
           <Gallery photos={this.state.images} />
+          <p>
+            Build Date: {preval`module.exports = new Date().toLocaleString();`}.
+          </p>
         </div>
         <Popup />
       </div>

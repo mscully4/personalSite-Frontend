@@ -10,6 +10,7 @@
     "@testing-library/user-event": "^12.8.3",
     "clsx": "^1.1.1",
     "google-map-react": "^2.1.10",
+    "preval.macro": "^5.0.0",
     "react": "^17.0.2",
     "react-country-flag": "^2.3.1",
     "react-custom-scrollbar": "^1.0.0",
