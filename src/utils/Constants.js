@@ -9,6 +9,10 @@ export const API_TRAVEL_ALBUMS = `${API_BASE}/travel/albums`;
 
 export const API_HOME_PHOTOS = `${API_BASE}/home/photos`;
 
+export const API_RESUME_JOBS = `${API_BASE}/resume/jobs`;
+export const API_RESUME_SKILLS = `${API_BASE}/resume/skills`;
+export const API_RESUME_EDUCATION = `${API_BASE}/resume/education`;
+
 //Mapping Constants
 export const GOOGLE_MAPS_API_KEY = "AIzaSyAk_bN5yfkLuUzptVXIHWs59YdFmI_TjAc";
 export const DEFAULT_CENTER = { lat: 33.749, lng: -84.388 };
