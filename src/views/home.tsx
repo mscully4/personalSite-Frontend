@@ -6,10 +6,14 @@ import Popup from "../components/Popup";
 import { API_HOME_PHOTOS } from "../utils/Constants";
 import { getRandomSubarray } from "../utils/Formulas";
 import preval from "preval.macro";
+import { useState, useEffect } from "react";
+import { makeStyles, Theme } from "@material-ui/core/styles";
+import { objectKeysSnakeCasetoCamelCase } from "../utils/backend";
+import Photo from "../types/photo";
 
 const NUMBER_OF_PHOTOS = 40;
 
-const styles = (theme) => ({
+const styles = makeStyles((theme: Theme) => ({
   gallery: {
     height: "92.5vh",
     overflow: "scroll",
@@ -18,7 +22,10 @@ const styles = (theme) => ({
       display: "none",
     },
   },
-});
+  buildInfo: {
+    textAlign: "center",
+  },
+}));
 
 const theme = {
   navBarBackgroundColor: "#ffffff",
@@ -28,15 +35,14 @@ const theme = {
   iconFillColor: "#000000",
 };
 
-class Home extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      images: [],
-    };
-  }
+interface HomeProps {}
 
-  componentDidMount = () => {
+export default function Home(props: HomeProps) {
+  const classes = styles();
+
+  const [images, setImages] = useState<Photo[]>([]);
+
+  useEffect(() => {
     fetch(API_HOME_PHOTOS)
       .then((res) => res.json())
       .then((json) => json.map((el) => el.Entity))
@@ -44,29 +50,22 @@ class Home extends React.Component {
         json.map((obj) => {
           obj.width = parseInt(obj.width);
           obj.height = parseInt(obj.height);
-          return obj;
+          return objectKeysSnakeCasetoCamelCase(obj);
         });
-        this.setState({
-          images: getRandomSubarray(json, NUMBER_OF_PHOTOS),
-        });
+        setImages(getRandomSubarray(json, NUMBER_OF_PHOTOS));
       });
-  };
+  }, []);
 
-  render() {
-    const classes = this.props.classes;
-    return (
-      <div>
-        <Navigation theme={theme} />
-        <div className={classes.gallery}>
-          <Gallery photos={this.state.images} />
-          <p>
-            Build Date: {preval`module.exports = new Date().toLocaleString();`}.
-          </p>
-        </div>
-        <Popup />
+  return (
+    <div>
+      <Navigation theme={theme} />
+      <div className={classes.gallery}>
+        <Gallery photos={images} />
+        <p className={classes.buildInfo}>
+          Build Date: {preval`module.exports = new Date().toLocaleString();`}.
+        </p>
       </div>
-    );
-  }
+      <Popup />
+    </div>
+  );
 }
-
-export default withStyles(styles)(Home);
