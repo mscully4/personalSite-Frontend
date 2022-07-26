@@ -1,8 +1,8 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
-import Home from "./Home";
-import Travel from "./Travel";
-import Resume from "./Resume";
+import Home from "./home";
+import Travel from "./travel";
+import Resume from "./resume";
 
 class Router extends React.Component {
   constructor(props) {

@@ -1,4 +1,3 @@
-import React from "react";
 import Navigation from "../components/Navigation";
 import {
   API_RESUME_JOBS,
@@ -272,7 +271,6 @@ function Resume(props: ResumeProps) {
     <div>
       <Navigation theme={theme} />
       <Typography
-        // className={clsx(classes.rowHeader)}
         variant="h2"
         color="text.primary"
         align="center"
