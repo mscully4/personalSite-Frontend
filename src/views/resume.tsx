@@ -1,4 +1,3 @@
-import Navigation from "../components/Navigation";
 import {
   API_RESUME_JOBS,
   API_RESUME_SKILLS,
@@ -14,20 +13,13 @@ import Job from "../types/job";
 import Education from "../types/education";
 import Skill from "../types/skill";
 import clsx from "clsx";
+import { Paper } from "@material-ui/core";
 
 const styles = makeStyles((theme: Theme) => ({
-  main: {
-    width: "80%",
-    boxShadow: "0px 8px 16px 2px rgba(0,0,0,1)",
-    height: 1000,
-    margin: "auto",
-    marginTop: 10,
-    marginBottom: 100,
-  },
   rowHeader: {
     fontFamily: "EB Garamond, cursive !important",
-    marginTop: "25px !important",
-    marginBottom: "0px !important",
+    // marginTop: "25px !important",
+    // marginBottom: "0px !important",
   },
   row: {
     width: "90%",
@@ -72,15 +64,14 @@ const styles = makeStyles((theme: Theme) => ({
     maxHeight: "80%",
     margin: "auto",
   },
+  container: {
+    width: "100%",
+  },
+  paper: {
+    width: "70%",
+    margin: "auto",
+  },
 }));
-
-const theme = {
-  navBarBackgroundColor: "#ffffff",
-  logoColor: "#000000",
-  menuBackgroundColor: "#ffffff",
-  cardBackgroundColor: "#ffffff",
-  iconFillColor: "#000000",
-};
 
 interface ResumeProps {}
 
@@ -268,43 +259,44 @@ function Resume(props: ResumeProps) {
   const skillCards = skills.map((skill: Skill) => makeSkillCard(skill));
 
   return (
-    <div>
-      <Navigation theme={theme} />
-      <Typography
-        variant="h2"
-        color="text.primary"
-        align="center"
-        classes={{
-          root: classes.rowHeader,
-        }}
-      >
-        Experience
-      </Typography>
-      <div className={clsx(classes.row, classes.threeColumnRow)}>
-        {jobCards}
-      </div>
-      <Typography
-        className={clsx(classes.rowHeader)}
-        variant="h2"
-        color="text.primary"
-        align="center"
-      >
-        Education
-      </Typography>
-      <div className={clsx(classes.row, classes.threeColumnRow)}>
-        {educationCards}
-      </div>
-      <Typography
-        className={clsx(classes.rowHeader)}
-        variant="h2"
-        color="text.primary"
-        align="center"
-      >
-        Skills
-      </Typography>
-      <div className={clsx(classes.row, classes.fiveColumnRow)}>
-        {skillCards}
-      </div>
+    <div className={classes.container}>
+      <Paper elevation={12} className={classes.paper}>
+        <Typography
+          variant="h2"
+          color="text.primary"
+          align="center"
+          classes={{
+            root: classes.rowHeader,
+          }}
+        >
+          Experience
+        </Typography>
+        <div className={clsx(classes.row, classes.threeColumnRow)}>
+          {jobCards}
+        </div>
+        <Typography
+          className={clsx(classes.rowHeader)}
+          variant="h2"
+          color="text.primary"
+          align="center"
+        >
+          Education
+        </Typography>
+        <div className={clsx(classes.row, classes.threeColumnRow)}>
+          {educationCards}
+        </div>
+        <Typography
+          className={clsx(classes.rowHeader)}
+          variant="h2"
+          color="text.primary"
+          align="center"
+        >
+          Skills
+        </Typography>
+        <div className={clsx(classes.row, classes.fiveColumnRow)}>
+          {skillCards}
+        </div>
+      </Paper>
     </div>
   );
 }

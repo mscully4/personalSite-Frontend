@@ -5,6 +5,8 @@ import Place from "../types/place";
 import { MapRef } from "react-map-gl";
 import { DEFAULT_PLACE_ZOOM } from "../utils/mapping";
 import { GRANULARITIES, granularitySwitcher } from "../utils/granularity";
+import { useState } from "react";
+import { pinColors, randomPinColor } from "../utils/colors";
 
 const styles = makeStyles((theme: Theme) => ({
   pinIcon: {
@@ -23,11 +25,15 @@ interface MarkerProps {
   color: string;
   mapRef: MapRef | null;
   mapGranularity: GRANULARITIES;
+  setPreparedImages: any;
+  setGalleryOpen: any;
 }
 
 function Marker(props: MarkerProps) {
   const classes = styles();
 
+  // store the color in state so that it stays consistent across renders
+  const [color, setColor] = useState<string>(randomPinColor());
   const { latitude, longitude, placeId } = props.data;
 
   const offset: Record<string, PointLike> = {
@@ -42,7 +48,10 @@ function Marker(props: MarkerProps) {
     props.mapRef?.zoomTo(DEFAULT_PLACE_ZOOM);
   };
 
-  const onClickPlace = () => {};
+  const onClickPlace = () => {
+    props.setPreparedImages(props.data);
+    props.setGalleryOpen(true);
+  };
 
   return (
     <MapboxMarker
@@ -74,7 +83,7 @@ function Marker(props: MarkerProps) {
           fill="url(#shadowGradient)"
         ></ellipse>
         <path
-          fill={props.color}
+          fill={color}
           d="M27,13.5C27,19.07 20.25,27 14.75,34.5C14.02,35.5 12.98,35.5 12.25,34.5C6.75,27 0,19.22 0,13.5C0,6.04 6.04,0 13.5,0C20.96,0 27,6.04 27,13.5Z"
         ></path>
         <path

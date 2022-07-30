@@ -1,4 +1,4 @@
-export interface Album {
+export default interface Album {
   albumId: string;
   coverPhotoId: string;
   coverPhotoSrc: string;

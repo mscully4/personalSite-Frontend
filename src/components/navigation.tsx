@@ -8,7 +8,7 @@ const styles = makeStyles((theme: Theme) => ({
     width: "100%",
     display: "grid",
     gridTemplateRows: "1fr",
-    gridTemplateColumns: "2fr 2fr 1fr",
+    gridTemplateColumns: "1fr 1fr 25px",
     alignItems: "center",
     borderBottom: `2px solid ${theme.palette.common.black}`,
     position: "relative",
@@ -24,16 +24,15 @@ const styles = makeStyles((theme: Theme) => ({
     color: theme.palette.text.primary,
   },
   menu: {
-    display: "grid",
-    gridTemplateRows: "1fr",
-    gridTemplateColumns: "1fr 1fr 1fr",
-    alignItems: "center",
-    justifyItems: "center",
+    textAlign: "right",
     width: "100%",
   },
   card: {
-    width: "50%",
-    height: "50%",
+    display: "inline-block",
+    width: 50,
+    height: 50,
+    marginLeft: 10,
+    marginRight: 10,
   },
   icon: {
     height: "100%",
@@ -91,7 +90,7 @@ export default function Navigation(props: NavigationProps) {
   return (
     <Paper elevation={6} className={clsx(classes.navigationBar)}>
       <Typography className={clsx(classes.logo)}>Michael Scully</Typography>
-      <div className={classes.spacer}></div>
+      {/* <div className={classes.spacer}></div> */}
       {menu}
     </Paper>
   );

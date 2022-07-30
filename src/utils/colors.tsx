@@ -3,10 +3,21 @@ import { blue, lightBlue } from "@mui/material/colors";
 
 export const lightTheme: Theme = createTheme({
   palette: {
-    primary: blue,
+    primary: {
+      dark: "#235E9A",
+      main: "#016aff",
+    },
     secondary: lightBlue,
   },
 });
+console.log(lightTheme);
+
+export const foo = {
+  tuftsBlue: "#1c7ad9",
+  blackCoffee: "#342e37",
+  eggshell: "#f0ebd8",
+  blue: "#016aff",
+};
 
 export const pinColors = [
   "#0084FF",
@@ -15,4 +26,9 @@ export const pinColors = [
   "#FA3C4C",
   "#D696BB",
   "#3FB1CE",
+  "#17A589", // Turquoise
 ];
+
+export const randomPinColor = () => {
+  return pinColors[Math.floor(Math.random() * pinColors.length)];
+};

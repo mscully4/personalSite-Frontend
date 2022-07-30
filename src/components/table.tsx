@@ -5,10 +5,8 @@ import clsx from "clsx";
 import ReactCountryFlag from "react-country-flag";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import CircularProgress from "@mui/material/CircularProgress";
-import AddIcon from "@mui/icons-material/Add";
 import Box from "@mui/material/Box";
 import { MapRef } from "react-map-gl";
-// import DropDown from "./DropDown";
 import { lightTheme } from "../utils/colors";
 import { granularitySwitcher, GRANULARITIES } from "../utils/granularity";
 import Destination from "../types/destination";
@@ -16,9 +14,9 @@ import Place from "../types/place";
 
 const styles = makeStyles((theme: Theme) => ({
   container: {
-    backgroundColor: lightTheme.palette.background.paper,
     width: "100%",
     overflow: "hidden",
+    borderLeft: "solid 1px gray",
   },
   table: {
     width: "100%",
@@ -60,7 +58,7 @@ const styles = makeStyles((theme: Theme) => ({
   },
   columnHeader: {
     textAlign: "center",
-    color: lightTheme.palette.primary.contrastText,
+    color: "black",
     backgroundColor: theme.palette.primary[900],
     position: "relative",
   },
@@ -109,22 +107,13 @@ const styles = makeStyles((theme: Theme) => ({
 interface VirtualTableProps {
   destinations: Destination[];
   renderablePlaces: Place[];
-  setAddPlaceDestination: (value: Destination) => void;
-  setAddPlaceIsOpen: (value: boolean) => void;
-  setEditDestinationIsOpen: (value: boolean) => void;
-  setEditDestination: (destination: Destination) => void;
-  setEditPlaceIsOpen: (value: boolean) => void;
-  setEditPlace: (place: Place) => void;
   setHoverId: (value: string | null) => void;
-  setDeleteIsOpen: (value: boolean) => void;
-  setDeleteObject: (value: Destination | Place) => void;
   hoverId: string | null;
   mapGranularity: GRANULARITIES;
   mapRef: MapRef | undefined;
-  setAddDestinationsIsOpen: (valie: boolean) => void;
-  isLoggedIn: boolean;
   isLoadingUserData: boolean;
-  allowEdits: boolean;
+  setPreparedImages: any;
+  setGalleryOpen: any;
 }
 
 function VirtualTable(props: VirtualTableProps) {
@@ -176,31 +165,6 @@ function VirtualTable(props: VirtualTableProps) {
             right: "10%",
           }}
         />
-
-        {props.isLoggedIn ? (
-          <AddIcon
-            classes={{
-              root: classes.addPlaceIcon,
-            }}
-            onClick={() => {
-              props.setAddPlaceDestination(data);
-              props.setAddPlaceIsOpen(true);
-            }}
-            style={{
-              right: isScrollbarVisible() ? 15 : "1%",
-            }}
-          />
-        ) : null}
-
-        {/* {props.allowEdits ? (
-          <DropDown
-            setEditIsOpen={props.setEditDestinationIsOpen}
-            setEditObject={props.setEditDestination}
-            setDeleteIsOpen={props.setDeleteIsOpen}
-            setDeleteObject={props.setDeleteObject}
-            data={data}
-          />
-        ) : null} */}
       </div>
     );
   };
@@ -212,15 +176,6 @@ function VirtualTable(props: VirtualTableProps) {
           {data.name}, <br /> {data.country} <br />
         </p>
         <div></div>
-        {/* {props.allowEdits ? (
-          <DropDown
-            setEditIsOpen={props.setEditPlaceIsOpen}
-            setEditObject={props.setEditPlace}
-            setDeleteIsOpen={props.setDeleteIsOpen}
-            setDeleteObject={props.setDeleteObject}
-            data={data}
-          />
-        ) : null} */}
       </div>
     );
   };
@@ -238,12 +193,6 @@ function VirtualTable(props: VirtualTableProps) {
         className={classes.columnHeader}
       >
         {"Destinations"}
-        {props.allowEdits ? (
-          <AddIcon
-            className={classes.addDestinationIcon}
-            onClick={() => props.setAddDestinationsIsOpen(true)}
-          />
-        ) : null}
       </div>
     );
   };
@@ -297,6 +246,9 @@ function VirtualTable(props: VirtualTableProps) {
     // If an SVG within the row is clicked do nothing
     if (event.target.tagName === "path" || event.target.tagName === "svg")
       return;
+
+    props.setPreparedImages(rowData);
+    props.setGalleryOpen(true);
   };
 
   const rowClick = granularitySwitcher(

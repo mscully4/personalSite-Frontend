@@ -1,7 +1,4 @@
-import React from "react";
 import Gallery from "react-photo-gallery";
-import { withStyles } from "@material-ui/styles";
-import Navigation from "../components/Navigation";
 import Popup from "../components/Popup";
 import { API_HOME_PHOTOS } from "../utils/Constants";
 import { getRandomSubarray } from "../utils/Formulas";
@@ -27,14 +24,6 @@ const styles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const theme = {
-  navBarBackgroundColor: "#ffffff",
-  logoColor: "#000000",
-  menuBackgroundColor: "#ffffff",
-  cardBackgroundColor: "#ffffff",
-  iconFillColor: "#000000",
-};
-
 interface HomeProps {}
 
 export default function Home(props: HomeProps) {
@@ -58,7 +47,6 @@ export default function Home(props: HomeProps) {
 
   return (
     <div>
-      <Navigation theme={theme} />
       <div className={classes.gallery}>
         <Gallery photos={images} />
         <p className={classes.buildInfo}>
