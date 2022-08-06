@@ -1,4 +1,3 @@
-export const GOOGLE_MAPS_API_KEY = process.env.REACT_APP_GOOGLE_API_KEY;
 export const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_TOKEN;
 
 export const DEFAULT_CENTER = { lat: 40.7506, lng: -73.9935 }; // NYC!
