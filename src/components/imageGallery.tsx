@@ -43,7 +43,7 @@ export default function ImageGallery(props: ImageGalleryProps) {
             className={classes.imageListItem}
             onClick={(e) => props.galleryOnClick(e, n)}
           >
-            <img src={image.src} loading="lazy" />
+            <img src={image.thumbnailSrc} loading="lazy" />
           </ImageListItem>
         ))}
       </ImageList>

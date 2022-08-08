@@ -132,7 +132,7 @@ export default function (props: CardGalleryProps) {
         {photo ? (
           <CardMedia
             component="img"
-            image={photo.src}
+            image={photo.thumbnailSrc}
             classes={{
               media: classes.cardImage,
             }}

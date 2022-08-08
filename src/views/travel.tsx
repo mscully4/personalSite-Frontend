@@ -162,7 +162,6 @@ export default function Travel(props: TravelProps) {
         .then((json) => json.map((el) => el.Entity))
         .then((entities) => {
           const photos: Photo[] = entities.map((entity) => {
-            entity.src = entity.url;
             entity.width = parseFloat(entity.width);
             entity.height = parseFloat(entity.height);
             return objectKeysSnakeCasetoCamelCase(entity);

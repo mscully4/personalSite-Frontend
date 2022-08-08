@@ -7,4 +7,5 @@ export default interface Photo {
   creationTimestamp: string;
   hash: string;
   placeId: string;
+  thumbnailSrc: string;
 }
