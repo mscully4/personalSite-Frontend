@@ -1,8 +1,7 @@
 import Modal from "@material-ui/core/Modal";
-import ImageList from "@mui/material/ImageList";
-import ImageListItem from "@mui/material/ImageListItem";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import Photo from "../types/photo";
+import Gallery from "react-photo-gallery";
 
 const styles = makeStyles((theme: Theme) => ({
   modal: {
@@ -27,6 +26,13 @@ interface ImageGalleryProps {
 
 export default function ImageGallery(props: ImageGalleryProps) {
   const classes = styles();
+
+  const photos = props.preparedImages.map((image) => ({
+    src: image.thumbnailSrc,
+    width: image.width,
+    height: image.height,
+  }));
+
   return (
     <Modal
       open={props.galleryOpen}
@@ -36,17 +42,12 @@ export default function ImageGallery(props: ImageGalleryProps) {
         zIndex: 99999999999,
       }}
     >
-      <ImageList variant="masonry" cols={3}>
-        {props.preparedImages.map((image, n) => (
-          <ImageListItem
-            key={image.hash}
-            className={classes.imageListItem}
-            onClick={(e) => props.galleryOnClick(e, n)}
-          >
-            <img src={image.thumbnailSrc} loading="lazy" />
-          </ImageListItem>
-        ))}
-      </ImageList>
+      <Gallery
+        photos={photos}
+        onClick={(e, obj) => {
+          props.galleryOnClick(e, obj.index);
+        }}
+      />
     </Modal>
   );
 }
