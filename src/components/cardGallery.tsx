@@ -167,9 +167,10 @@ export default function (props: CardGalleryProps) {
     );
   };
 
-  const generatePlaceCards = (place: Place) => {
-    const photos: Photo[] =
-      place.placeId in props.photos ? props.photos[place.placeId] : [];
+  const generatePlaceCard = (place: Place) => {
+    const photo =
+      place.placeId in props.photos ? props.photos[place.placeId][0] : null;
+
     return (
       <Card
         className={clsx(classes.card)}
@@ -178,10 +179,10 @@ export default function (props: CardGalleryProps) {
         onMouseOut={cardOnMouseOut}
         onClick={(e) => onCardClickPlace(e, place)}
       >
-        {photos.length ? (
+        {photo ? (
           <CardMedia
             component="img"
-            image={photos[0].src}
+            image={photo.thumbnailSrc}
             classes={{
               media: classes.cardImage,
             }}
@@ -211,7 +212,7 @@ export default function (props: CardGalleryProps) {
       props.destinations.map((destination) =>
         generateDestinationCards(destination)
       ),
-    () => props.renderablePlaces.map((place) => generatePlaceCards(place))
+    () => props.renderablePlaces.map((place) => generatePlaceCard(place))
   );
 
   const cards = cardGenerator();
