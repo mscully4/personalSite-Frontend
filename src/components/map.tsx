@@ -1,6 +1,5 @@
 import { useRef, SetStateAction, useEffect } from "react";
 import { Map as MapboxMap, MapRef } from "react-map-gl";
-import "mapbox-gl/dist/mapbox-gl.css";
 import Marker from "./marker";
 import {
   DEFAULT_CENTER,
