@@ -3,14 +3,14 @@ import Viewer from "react-viewer";
 
 interface ImageViewerProps {
   isOpen: boolean;
-  toggleViewer: any;
-  toggleGallery: any;
+  toggleViewer: (value: boolean) => void;
+  toggleGallery: (value: boolean) => void;
   views: Photo[];
   currentIndex: number;
 }
 
 export default function ImageViewer(props: ImageViewerProps) {
-  var currentIndex =
+  const currentIndex =
     props.currentIndex >= props.views.length ? 0 : props.currentIndex;
   return (
     <Viewer

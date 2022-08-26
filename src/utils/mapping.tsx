@@ -12,18 +12,18 @@ export enum GRANULARITIES {
   DESTINATIONS = "destinations",
 }
 
-export const granularitySwitcher = (
+export function granularitySwitcher<T, V>(
   granularity: GRANULARITIES,
-  dest: any,
-  place: any
-) => {
+  dest: T,
+  place: V
+) {
   switch (granularity) {
     case GRANULARITIES.DESTINATIONS:
       return dest;
     case GRANULARITIES.PLACES:
       return place;
   }
-};
+}
 
 export const metersToMiles = (meters: number) => {
   return meters * 0.000621371;
@@ -43,16 +43,16 @@ export const getDistanceBetweenTwoPoints = (
     return (x * Math.PI) / 180;
   };
 
-  var R = 6378137; // Earth’s mean radius in meter
-  var dLat = rad(lat2 - lat1);
-  var dLong = rad(long2 - long1);
-  var a =
+  const R = 6378137; // Earth’s mean radius in meter
+  const dLat = rad(lat2 - lat1);
+  const dLong = rad(long2 - long1);
+  const a =
     Math.sin(dLat / 2) * Math.sin(dLat / 2) +
     Math.cos(rad(lat1)) *
       Math.cos(rad(lat2)) *
       Math.sin(dLong / 2) *
       Math.sin(dLong / 2);
-  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  var d = R * c;
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  const d = R * c;
   return metersToMiles(d); // convert from meters to miles
 };

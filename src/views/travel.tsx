@@ -46,12 +46,9 @@ const styles = makeStyles((theme: Theme) => ({
   },
 }));
 
-interface TravelProps {}
-
-export default function Travel(props: TravelProps) {
+export default function Travel() {
   const classes = styles();
 
-  const [ready, setReady] = useState(false);
   const [destinations, setDestinations] = useState<Destination[]>([]);
   const [places, setPlaces] = useState<Record<string, Place[]>>({});
   const [photos, setPhotos] = useState<Record<string, Photo[]>>({});
@@ -113,14 +110,13 @@ export default function Travel(props: TravelProps) {
         .json()
         .then((json) => json.map((el) => el.Entity))
         .then((entities) => {
-          const destinations: Destination[] = entities.map((el, i) => {
+          const destinations: Destination[] = entities.map((el) => {
             el.latitude = parseFloat(el.latitude);
             el.longitude = parseFloat(el.longitude);
             return objectKeysSnakeCasetoCamelCase(el);
           });
 
           setDestinations(destinations);
-          setReady(true);
         });
     });
 
@@ -134,13 +130,13 @@ export default function Travel(props: TravelProps) {
         .json()
         .then((json) => json.map((el) => el.Entity))
         .then((entities) => {
-          const places: Place[] = entities.map((place, i) => {
+          const places: Place[] = entities.map((place) => {
             place.latitude = parseFloat(place.latitude);
             place.longitude = parseFloat(place.longitude);
             return objectKeysSnakeCasetoCamelCase(place);
           });
-          var result = places.reduce((map, place) => {
-            var array = map[place.destinationId]
+          const result = places.reduce((map, place) => {
+            const array = map[place.destinationId]
               ? map[place.destinationId]
               : [];
             array.push(place);
@@ -225,9 +221,9 @@ export default function Travel(props: TravelProps) {
     if (!mapCenter) return;
 
     let closestDestination: Destination;
-    let closestDestinationDistance: number = Infinity;
+    let closestDestinationDistance = Infinity;
     destinations.forEach((obj) => {
-      var distance = getDistanceBetweenTwoPoints(
+      const distance = getDistanceBetweenTwoPoints(
         obj.latitude,
         obj.longitude,
         mapCenter.lat,
@@ -251,10 +247,10 @@ export default function Travel(props: TravelProps) {
   };
 
   //Gallery Functions
-  const toggleGallery = (value) => {
-    const boolean = typeof value === "boolean" ? value : !galleryOpen;
-    setGalleryOpen(boolean);
-  };
+  // const toggleGallery = (value) => {
+  //   const boolean = typeof value === "boolean" ? value : !galleryOpen;
+  //   setGalleryOpen(boolean);
+  // };
 
   const galleryOnClick = (event: SyntheticEvent, index: number) => {
     setCurrImg(index);
@@ -263,10 +259,9 @@ export default function Travel(props: TravelProps) {
   };
 
   //Image Viewer Functions
-  const toggleViewer = (value) => {
-    const boolean = typeof value === "boolean" ? value : imageViewerOpen;
-    setImageViewerOpen(boolean);
-    setGalleryOpen(boolean ? false : true);
+  const toggleViewer = (value = false) => {
+    setImageViewerOpen(value);
+    setGalleryOpen(!value);
   };
 
   return (
@@ -302,13 +297,13 @@ export default function Travel(props: TravelProps) {
         galleryOpen={galleryOpen}
         galleryOnClick={galleryOnClick}
         preparedImages={preparedImages}
-        toggleGallery={toggleGallery}
+        toggleGallery={setGalleryOpen}
       />
 
       <ImageViewer
         isOpen={imageViewerOpen}
         toggleViewer={toggleViewer}
-        toggleGallery={toggleGallery}
+        toggleGallery={setGalleryOpen}
         views={preparedImages}
         currentIndex={currImg!}
       />

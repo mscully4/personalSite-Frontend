@@ -29,13 +29,12 @@ interface MarkerProps {
   setHoverId: (val: string | null) => void;
   mapRef: MapRef | null;
   mapGranularity: GRANULARITIES;
-  setPreparedImages: any;
-  setGalleryOpen: any;
+  setPreparedImages: (place: Place) => void;
+  setGalleryOpen: (prevState: boolean) => void;
 }
 
 function Marker(props: MarkerProps) {
   const classes = styles();
-
   // store the color in state so that it stays consistent across renders
   const [color, setColor] = useState<string>(randomPinColor());
   const { latitude, longitude, placeId } = props.data;
@@ -53,7 +52,7 @@ function Marker(props: MarkerProps) {
   };
 
   const onClickPlace = () => {
-    props.setPreparedImages(props.data);
+    props.setPreparedImages(props.data as Place);
     props.setGalleryOpen(true);
   };
 

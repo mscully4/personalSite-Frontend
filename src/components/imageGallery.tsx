@@ -2,6 +2,7 @@ import Modal from "@material-ui/core/Modal";
 import { makeStyles, Theme } from "@material-ui/core/styles";
 import Photo from "../types/photo";
 import Gallery from "react-photo-gallery";
+import { SyntheticEvent } from "react";
 
 const styles = makeStyles((theme: Theme) => ({
   modal: {
@@ -20,8 +21,8 @@ const styles = makeStyles((theme: Theme) => ({
 interface ImageGalleryProps {
   galleryOpen: boolean;
   preparedImages: Photo[];
-  galleryOnClick: any;
-  toggleGallery: any;
+  galleryOnClick: (event: SyntheticEvent, index: number) => void;
+  toggleGallery: (value: boolean) => void;
 }
 
 export default function ImageGallery(props: ImageGalleryProps) {

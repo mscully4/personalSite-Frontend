@@ -16,19 +16,19 @@ interface MapProps {
   renderablePlaces: Place[];
   hoverId: string | null;
   setHoverId: (value: string | null) => void;
-  setMapRef: (value: SetStateAction<any>) => void;
+  setMapRef: (value: SetStateAction<MapRef | undefined>) => void;
   mapGranularity: GRANULARITIES;
   setMapGranularity: (zoom: number) => void;
   updateRenderablePlaces: () => void;
-  setPreparedImages: any;
-  setGalleryOpen: any;
+  setPreparedImages: (place: Place) => void;
+  setGalleryOpen: (prevState: boolean) => void;
 }
 
 function Map(props: MapProps) {
   const mapRef = useRef<MapRef | null>(null);
 
   useEffect(() => {
-    props.setMapRef(mapRef.current);
+    if (mapRef.current) props.setMapRef(mapRef.current);
   }, [mapRef.current]);
 
   const generateMarkers = (data: Destination[] | Place[]) => {

@@ -72,9 +72,7 @@ const styles = makeStyles((theme: Theme) => ({
   },
 }));
 
-interface ResumeProps {}
-
-function Resume(props: ResumeProps) {
+function Resume() {
   const classes = styles();
 
   const [jobs, setJobs] = useState([]);

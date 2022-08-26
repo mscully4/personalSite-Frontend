@@ -14,8 +14,9 @@ import {
 import Destination from "../types/destination";
 import Place from "../types/place";
 import Photo from "../types/photo";
+import { Dispatch, SetStateAction } from "react";
 
-const NoImages = require("../static/images/NoImages.jpg");
+import NoImages from "../static/images/NoImages.jpg";
 
 const styles = makeStyles((theme: Theme) => ({
   container: {
@@ -33,7 +34,7 @@ const styles = makeStyles((theme: Theme) => ({
     margin: "auto",
     width: "50%",
     borderRadius: 20,
-    fontSize: theme.typography.h5.fontSize!,
+    fontSize: theme.typography.h5.fontSize,
   },
   grid: {
     width: "100%",
@@ -86,17 +87,17 @@ interface CardGalleryProps {
   setHoverId: (value: string | null) => void;
   mapRef: MapRef | undefined;
   photos: Record<string, Photo[]>;
-  setPreparedImages: any;
-  setGalleryOpen: any;
+  setPreparedImages: (place: Place) => void;
+  setGalleryOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-export default function (props: CardGalleryProps) {
+export default function cardGallery(props: CardGalleryProps) {
   const classes = styles();
 
   const cardOnMouseOver = (data: Destination | Place) => {
     props.setHoverId(data.placeId);
     if (props.mapRef) {
-      props.mapRef.flyTo({
+      props.mapRef?.flyTo({
         center: [data.longitude, data.latitude],
         zoom: props.mapRef.getZoom(),
       });
@@ -108,7 +109,7 @@ export default function (props: CardGalleryProps) {
   };
 
   const onCardClickDestination = (e, destination: Destination) => {
-    props.mapRef!.flyTo({
+    props.mapRef?.flyTo({
       center: [destination.longitude, destination.latitude],
       zoom: GRANULARITY_CUTOFF + 1,
     });

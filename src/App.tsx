@@ -10,9 +10,7 @@ import { lightTheme } from "./utils/colors";
 
 const NAV_HEIGHT = 0.075;
 
-interface AppProps {}
-
-function App(props: AppProps) {
+function App() {
   const [height, setHeight] = useState(window.innerHeight);
   window.addEventListener("resize", () => {
     if (window.innerHeight !== height) setHeight(window.innerHeight);

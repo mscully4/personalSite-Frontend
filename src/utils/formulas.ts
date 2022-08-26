@@ -1,5 +1,5 @@
-export const shuffle = (array: Array<any>) => {
-  var currentIndex = array.length,
+export function shuffle<Type>(array: Array<Type>) {
+  let currentIndex = array.length,
     temporaryValue,
     randomIndex;
 
@@ -16,11 +16,11 @@ export const shuffle = (array: Array<any>) => {
   }
 
   return array;
-};
+}
 
-export const getRandomSubarray = (arr: Array<any>, size: number) => {
-  var shuffled = arr.slice(0),
-    i = arr.length,
+export function getRandomSubarray<Type>(arr: Array<Type>, size: number) {
+  const shuffled = arr.slice(0);
+  let i = arr.length,
     temp,
     index;
   while (i--) {
@@ -30,4 +30,4 @@ export const getRandomSubarray = (arr: Array<any>, size: number) => {
     shuffled[i] = temp;
   }
   return shuffled.slice(0, size);
-};
+}

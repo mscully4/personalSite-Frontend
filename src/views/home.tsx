@@ -49,9 +49,7 @@ const styles = makeStyles((theme: Theme) => ({
   },
 }));
 
-interface HomeProps {}
-
-export default function Home(props: HomeProps) {
+export default function Home() {
   const classes = styles();
 
   const [images, setImages] = useState<Photo[]>([]);
