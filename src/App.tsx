@@ -8,17 +8,19 @@ import Resume from "./views/resume";
 import Navigation from "./components/navigation";
 import { lightTheme } from "./utils/colors";
 
-const NAV_HEIGHT = 0.075;
+const NAV_HEIGHT_PERC = 0.075;
+const MIN_NAV_HEIGHT_PX = 50;
 
 function App() {
   const [height, setHeight] = useState(window.innerHeight);
   window.addEventListener("resize", () => {
     if (window.innerHeight !== height) setHeight(window.innerHeight);
   });
+  const navHeight = Math.min(height * NAV_HEIGHT_PERC, MIN_NAV_HEIGHT_PX);
   return (
     <ThemeProvider theme={lightTheme}>
-      <Navigation height={height * NAV_HEIGHT} />
-      <div style={{ height: height * (1 - NAV_HEIGHT) }}>
+      <Navigation height={navHeight} />
+      <div style={{ height: height - navHeight }}>
         <BrowserRouter>
           <Switch>
             <Route path="/home" component={Home} />
