@@ -26,6 +26,7 @@ const styles = makeStyles((theme: Theme) => ({
   },
   icon: {
     width: 50,
+    height: "100%",
     "&:hover": {
       fill: theme.palette.primary.main,
     },
@@ -43,11 +44,15 @@ interface NavigationProps {
 export default function Navigation(props: NavigationProps) {
   const classes = styles();
   const titleHeight = props.height * 0.8;
-  const maxIconHeight = props.height * 0.7;
+  const maxIconHeight = props.height * 0.6;
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" className={classes.navigationBar}>
+    <Box sx={{ flexGrow: 1, height: props.height }}>
+      <AppBar
+        position="static"
+        className={classes.navigationBar}
+        style={{ height: props.height }}
+      >
         <Toolbar>
           <Typography
             style={{ fontSize: titleHeight }}

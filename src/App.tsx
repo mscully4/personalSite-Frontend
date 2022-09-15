@@ -9,7 +9,7 @@ import Navigation from "./components/navigation";
 import { lightTheme } from "./utils/colors";
 
 const NAV_HEIGHT_PERC = 0.075;
-const MIN_NAV_HEIGHT_PX = 50;
+const MIN_NAV_HEIGHT_PX = 64;
 
 function App() {
   const [height, setHeight] = useState(window.innerHeight);
