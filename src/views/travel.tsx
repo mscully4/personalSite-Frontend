@@ -52,6 +52,7 @@ export default function Travel() {
   const [destinations, setDestinations] = useState<Destination[]>([]);
   const [places, setPlaces] = useState<Record<string, Place[]>>({});
   const [photos, setPhotos] = useState<Record<string, Photo[]>>({});
+  const [photosLoaded, setPhotosLoaded] = useState<boolean>(false);
   const [renderablePlaces, setRenderablePlaces] = useState<Place[]>([]);
   const [albums, setAlbums] = useState<Record<string, Album[]>>({});
   const [destinationCardPhotos, setDestinationCardPhotos] = useState<
@@ -175,6 +176,7 @@ export default function Travel() {
           });
 
           setPhotos(photoMapping);
+          setPhotosLoaded(true);
         });
     });
 
@@ -290,6 +292,7 @@ export default function Travel() {
           photos={photos}
           setGalleryOpen={setGalleryOpen}
           setPreparedImages={setPreparedImages}
+          photosLoaded={photosLoaded}
         />
       </Paper>
 

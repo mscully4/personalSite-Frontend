@@ -15,6 +15,7 @@ import Destination from "../types/destination";
 import Place from "../types/place";
 import Photo from "../types/photo";
 import { Dispatch, SetStateAction } from "react";
+import CircularProgress from "@mui/material/CircularProgress";
 
 import NoImages from "../static/images/NoImages.jpg";
 
@@ -76,6 +77,9 @@ const styles = makeStyles((theme: Theme) => ({
     maxHeight: "100%",
     margin: "auto",
   },
+  spinner: {
+    margin: "auto",
+  },
 }));
 
 interface CardGalleryProps {
@@ -89,6 +93,7 @@ interface CardGalleryProps {
   photos: Record<string, Photo[]>;
   setPreparedImages: (place: Place) => void;
   setGalleryOpen: Dispatch<SetStateAction<boolean>>;
+  photosLoaded: boolean;
 }
 
 export default function cardGallery(props: CardGalleryProps) {
@@ -138,8 +143,10 @@ export default function cardGallery(props: CardGalleryProps) {
               media: classes.cardImage,
             }}
           />
-        ) : (
+        ) : props.photosLoaded ? (
           <img src={NoImages} className={classes.cardImage} />
+        ) : (
+          <CircularProgress className={classes.spinner} />
         )}
         <CardContent className={clsx(classes.cardContent)}>
           <Typography
