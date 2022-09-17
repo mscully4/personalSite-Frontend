@@ -17,6 +17,21 @@ import Education from "../types/education";
 import Skill from "../types/skill";
 
 const styles = makeStyles((theme: Theme) => ({
+  container: {
+    width: "100%",
+    height: "100%",
+  },
+  paper: {
+    width: "70%",
+    maxWidth: 1000,
+    height: "100%",
+    margin: "auto",
+    overflow: "scroll",
+    scrollbarWidth: "none",
+    "&::-webkit-scrollbar": {
+      display: "none",
+    },
+  },
   rowHeader: {
     fontFamily: "EB Garamond, cursive !important",
   },
@@ -33,6 +48,7 @@ const styles = makeStyles((theme: Theme) => ({
   },
   fiveColumnRow: {
     gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr 1fr",
+    height: 200,
   },
   card: {
     height: "90%",
@@ -61,13 +77,6 @@ const styles = makeStyles((theme: Theme) => ({
   cardImage: {
     maxWidth: "80%",
     maxHeight: "80%",
-    margin: "auto",
-  },
-  container: {
-    width: "100%",
-  },
-  paper: {
-    width: "70%",
     margin: "auto",
   },
 }));
@@ -242,15 +251,13 @@ function Resume() {
             media: classes.cardImage,
           }}
         />
-        <CardContent>
-          <Typography
-            className={clsx(classes.cardText)}
-            variant="body1"
-            color="text.primary"
-          >
-            {skill.name}
-          </Typography>
-        </CardContent>
+        <Typography
+          className={clsx(classes.cardText)}
+          variant="body1"
+          color="text.primary"
+        >
+          {skill.name}
+        </Typography>
       </Card>
     );
   };
@@ -263,7 +270,6 @@ function Resume() {
 
   return (
     <div className={classes.container}>
-      {/* <div style={{ height: window.innerHeight / 20 }}></div> */}
       <Paper elevation={12} className={classes.paper}>
         <Typography
           variant="h2"
@@ -300,6 +306,7 @@ function Resume() {
         <div className={clsx(classes.row, classes.fiveColumnRow)}>
           {skillCards}
         </div>
+        <div style={{ height: 25, width: "100%" }}></div>
       </Paper>
     </div>
   );
