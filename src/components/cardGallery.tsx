@@ -117,6 +117,7 @@ export default function cardGallery(props: CardGalleryProps) {
     props.mapRef?.flyTo({
       center: [destination.longitude, destination.latitude],
       zoom: GRANULARITY_CUTOFF + 1,
+      duration: 2000,
     });
   };
 
