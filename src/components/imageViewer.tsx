@@ -4,7 +4,6 @@ import Viewer from "react-viewer";
 interface ImageViewerProps {
   isOpen: boolean;
   toggleViewer: (value: boolean) => void;
-  toggleGallery: (value: boolean) => void;
   views: Photo[];
   currentIndex: number;
 }

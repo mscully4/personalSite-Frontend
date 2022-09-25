@@ -20,9 +20,9 @@ const styles = makeStyles((theme: Theme) => ({
 
 interface ImageGalleryProps {
   galleryOpen: boolean;
+  setGalleryOpen: (value: boolean) => void;
   preparedImages: Photo[];
   galleryOnClick: (event: SyntheticEvent, index: number) => void;
-  toggleGallery: (value: boolean) => void;
 }
 
 export default function ImageGallery(props: ImageGalleryProps) {
@@ -37,7 +37,7 @@ export default function ImageGallery(props: ImageGalleryProps) {
   return (
     <Modal
       open={props.galleryOpen}
-      onClose={props.toggleGallery}
+      onClose={() => props.setGalleryOpen(false)}
       className={classes.modal}
       style={{
         zIndex: 99999999999,

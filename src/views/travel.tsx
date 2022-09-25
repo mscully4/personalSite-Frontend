@@ -248,12 +248,6 @@ export default function Travel() {
     }
   };
 
-  //Gallery Functions
-  // const toggleGallery = (value) => {
-  //   const boolean = typeof value === "boolean" ? value : !galleryOpen;
-  //   setGalleryOpen(boolean);
-  // };
-
   const galleryOnClick = (event: SyntheticEvent, index: number) => {
     setCurrImg(index);
     setGalleryOpen(false);
@@ -300,13 +294,12 @@ export default function Travel() {
         galleryOpen={galleryOpen}
         galleryOnClick={galleryOnClick}
         preparedImages={preparedImages}
-        toggleGallery={setGalleryOpen}
+        setGalleryOpen={setGalleryOpen}
       />
 
       <ImageViewer
         isOpen={imageViewerOpen}
         toggleViewer={toggleViewer}
-        toggleGallery={setGalleryOpen}
         views={preparedImages}
         currentIndex={currImg!}
       />
