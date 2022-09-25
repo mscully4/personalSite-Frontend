@@ -59,11 +59,14 @@ function Marker(props: MarkerProps) {
   // The more south a marker, the higher its z-index
   const calculatedZIndex = Math.trunc((props.data.latitude * -1 + 90) * 1000);
 
+  const markerOffset: PointLike = [0, 5];
+
   return (
     <MapboxMarker
       longitude={props.data.longitude}
       latitude={props.data.latitude}
       anchor={"bottom"}
+      offset={markerOffset}
       style={{
         // The more south a marker, the higher its z-index
         zIndex: props.hoverId === props.data.placeId ? 99999 : calculatedZIndex,
