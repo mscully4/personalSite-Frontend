@@ -67,10 +67,11 @@ const styles = makeStyles((theme: Theme) => ({
     gridTemplateRows: "1fr",
     alignItems: "center",
     height: "100%",
+    padding: "6px !important"
   },
   cardText: {
     fontFamily: "EB Garamond, serif !important",
-    fontSize: "1rem !important",
+    fontSize: "1vw !important",
   },
   cardImage: {
     maxWidth: "100%",
@@ -228,8 +229,8 @@ export default function cardGallery(props: CardGalleryProps) {
 
   const gridTemplateRows =
     cards.length > 6
-      ? `repeat(${Math.floor(cards.length / 2)}, 33%)`
-      : "repeat(2, 33%)";
+    ? `repeat(${Math.floor(cards.length / 2)}, 33%)`
+    : "repeat(2, 33%)";
 
   return (
     <div className={classes.container}>
