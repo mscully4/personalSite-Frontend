@@ -16,7 +16,7 @@ function App() {
   window.addEventListener("resize", () => {
     if (window.innerHeight !== height) setHeight(window.innerHeight);
   });
-  const navHeight = Math.min(height * NAV_HEIGHT_PERC, MIN_NAV_HEIGHT_PX);
+  const navHeight = Math.max(height * NAV_HEIGHT_PERC, MIN_NAV_HEIGHT_PX);
   return (
     <ThemeProvider theme={lightTheme}>
       <Navigation height={navHeight} />
