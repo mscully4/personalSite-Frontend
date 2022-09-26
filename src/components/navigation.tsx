@@ -61,7 +61,7 @@ export default function Navigation(props: NavigationProps) {
             Michael Scully
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: "none", md: "flex" } }}>
+          <Box sx={{ display: { md: "flex" } }}>
             <a href="/" title="Home" className={classes.card}>
               <svg
                 className={clsx(classes.icon)}
