@@ -37,18 +37,19 @@ const styles = makeStyles((theme: Theme) => ({
     borderRadius: 20,
     fontSize: theme.typography.h5.fontSize,
   },
-  grid: {
+  flexContainer: {
     width: "100%",
     height: "100%",
-    display: "grid",
-    gridTemplateColumns: "1fr 1fr",
-    justifyItems: "center",
-    alignItems: "center",
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 5,
     overflowY: "scroll",
+    justifyContent: "center",
   },
   card: {
-    height: "90%",
-    width: "90%",
+    height: 250,
+    width: 250,
     cursor: "pointer",
     display: "grid",
     alignItems: "center",
@@ -56,9 +57,7 @@ const styles = makeStyles((theme: Theme) => ({
     gridTemplateRows: "minmax(0, 2fr) minmax(0, 1fr)",
     borderRadius: 10,
     "&:hover": {
-      height: "92%",
-      width: "92%",
-      boxShadow: theme.shadows[20],
+      boxShadow: theme.shadows[24],
     },
   },
   cardContent: {
@@ -226,25 +225,13 @@ export default function cardGallery(props: CardGalleryProps) {
 
   const cards = cardGenerator();
 
-  const gridTemplateRows =
-    cards.length > 6
-      ? `repeat(${Math.floor(cards.length / 2)}, 33%)`
-      : "repeat(2, 33%)";
-
   return (
     <div className={classes.container}>
       <div className={classes.title}>
         {granularitySwitcher(props.mapGranularity, "Destinations", "Place")}
       </div>
 
-      <div
-        className={classes.grid}
-        style={{
-          gridTemplateRows: gridTemplateRows,
-        }}
-      >
-        {cards}
-      </div>
+      <div className={classes.flexContainer}>{cards}</div>
     </div>
   );
 }
