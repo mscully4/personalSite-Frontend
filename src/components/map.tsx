@@ -22,6 +22,7 @@ interface MapProps {
   updateRenderablePlaces: () => void;
   setPreparedImages: (place: Place) => void;
   setGalleryOpen: (prevState: boolean) => void;
+  isVisible: boolean;
 }
 
 function Map(props: MapProps) {
@@ -63,6 +64,7 @@ function Map(props: MapProps) {
       style={{
         width: "100%",
         height: "100%",
+        visibility: props.isVisible ? "visible" : "hidden",
       }}
       mapStyle="mapbox://styles/mapbox/streets-v9"
       mapboxAccessToken={MAPBOX_TOKEN}

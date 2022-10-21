@@ -2,7 +2,7 @@ import { useState, useEffect, SyntheticEvent } from "react";
 import clsx from "clsx";
 import { MapRef } from "react-map-gl";
 import { makeStyles, Theme } from "@material-ui/core/styles";
-import { Paper } from "@material-ui/core";
+import { Paper, useMediaQuery } from "@material-ui/core";
 import Map from "../components/map";
 import ImageViewer from "../components/imageViewer";
 import CardGallery from "../components/cardGallery";
@@ -20,6 +20,7 @@ import Destination from "../types/destination";
 import Place from "../types/place";
 import Photo from "../types/photo";
 import Album from "../types/album";
+import { BreakpointKeys, breakpoints, Orientation } from "../utils/display";
 
 const styles = makeStyles((theme: Theme) => ({
   background: {
@@ -46,7 +47,11 @@ const styles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default function Travel() {
+export interface TravelProps {
+  mediaQueries: Record<Orientation, Partial<Record<BreakpointKeys, boolean>>>;
+}
+
+export default function Travel(props: TravelProps) {
   const classes = styles();
 
   const [destinations, setDestinations] = useState<Destination[]>([]);
@@ -260,9 +265,17 @@ export default function Travel() {
     setGalleryOpen(!value);
   };
 
+  const isMapVisible =
+    props.mediaQueries[Orientation.WIDTH][BreakpointKeys.sm]!;
+  const gridTemplateColumns = isMapVisible ? "1fr 1fr" : "0 1fr";
+
   return (
     <div style={{ height: height }} className={classes.background}>
-      <Paper elevation={24} className={clsx(classes.main)}>
+      <Paper
+        elevation={24}
+        className={clsx(classes.main)}
+        style={{ gridTemplateColumns: gridTemplateColumns }}
+      >
         <Map
           destinations={destinations}
           renderablePlaces={renderablePlaces}
@@ -274,6 +287,7 @@ export default function Travel() {
           updateRenderablePlaces={updateRenderablePlaces}
           setPreparedImages={setPreparedImages}
           setGalleryOpen={setGalleryOpen}
+          isVisible={isMapVisible}
         />
         <CardGallery
           destinations={destinations}
@@ -287,6 +301,7 @@ export default function Travel() {
           setGalleryOpen={setGalleryOpen}
           setPreparedImages={setPreparedImages}
           photosLoaded={photosLoaded}
+          mediaQueries={props.mediaQueries}
         />
       </Paper>
 

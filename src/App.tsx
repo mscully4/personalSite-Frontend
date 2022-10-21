@@ -55,7 +55,10 @@ function App() {
           <Switch>
             <Route path="/home" component={Home} />
             <Route path="/resume" component={Resume} />
-            <Route path="/travel" component={Travel} />
+            <Route
+              path="/travel"
+              render={() => <Travel mediaQueries={mediaQueries} />}
+            />
             <Route path="/" component={Home} />
           </Switch>
         </BrowserRouter>

@@ -17,7 +17,8 @@ import Photo from "../types/photo";
 import { Dispatch, SetStateAction } from "react";
 import CircularProgress from "@mui/material/CircularProgress";
 
-import NoImages from "../static/images/NoImages.jpg";
+import { BreakpointKeys, Orientation } from "../utils/display";
+import { noImages } from "../utils/images";
 
 const styles = makeStyles((theme: Theme) => ({
   container: {
@@ -67,11 +68,13 @@ const styles = makeStyles((theme: Theme) => ({
     gridTemplateRows: "1fr",
     alignItems: "center",
     height: "100%",
-    padding: "6px !important"
+    padding: "6px !important",
   },
   cardText: {
     fontFamily: "EB Garamond, serif !important",
-    fontSize: "1vw !important",
+    fontSize: "12px !important",
+    padding: "0 !important",
+    marginLeft: "10px !important",
   },
   cardImage: {
     maxWidth: "100%",
@@ -95,6 +98,7 @@ interface CardGalleryProps {
   setPreparedImages: (place: Place) => void;
   setGalleryOpen: Dispatch<SetStateAction<boolean>>;
   photosLoaded: boolean;
+  mediaQueries: Record<Orientation, Partial<Record<number, boolean>>>;
 }
 
 export default function cardGallery(props: CardGalleryProps) {
@@ -129,6 +133,7 @@ export default function cardGallery(props: CardGalleryProps) {
 
   const generateDestinationCards = (destination: Destination) => {
     const photo = props.destinationCardPhotos[destination.placeId];
+    const imageSrc = photo ? photo.thumbnailSrc : noImages;
     return (
       <Card
         className={clsx(classes.card)}
@@ -137,16 +142,14 @@ export default function cardGallery(props: CardGalleryProps) {
         onMouseOut={cardOnMouseOut}
         onClick={(e) => onCardClickDestination(e, destination)}
       >
-        {photo ? (
+        {props.photosLoaded ? (
           <CardMedia
             component="img"
-            image={photo.thumbnailSrc}
+            image={imageSrc}
             classes={{
               media: classes.cardImage,
             }}
           />
-        ) : props.photosLoaded ? (
-          <img src={NoImages} className={classes.cardImage} />
         ) : (
           <CircularProgress className={classes.spinner} />
         )}
@@ -167,7 +170,7 @@ export default function cardGallery(props: CardGalleryProps) {
             svg
             style={{
               height: "auto",
-              width: "80%",
+              width: "60%",
               margin: "auto",
               boxShadow: "0px 0px 10px 2px rgb(0 0 0 / 40%)",
             }}
@@ -180,6 +183,7 @@ export default function cardGallery(props: CardGalleryProps) {
   const generatePlaceCard = (place: Place) => {
     const photo =
       place.placeId in props.photos ? props.photos[place.placeId][0] : null;
+    const imageSrc = photo ? photo.thumbnailSrc : noImages;
 
     return (
       <Card
@@ -189,16 +193,16 @@ export default function cardGallery(props: CardGalleryProps) {
         onMouseOut={cardOnMouseOut}
         onClick={(e) => onCardClickPlace(e, place)}
       >
-        {photo ? (
+        {props.photosLoaded ? (
           <CardMedia
             component="img"
-            image={photo.thumbnailSrc}
+            image={imageSrc}
             classes={{
               media: classes.cardImage,
             }}
           />
         ) : (
-          <img src={NoImages} className={classes.cardImage} />
+          <CircularProgress className={classes.spinner} />
         )}
         <CardContent>
           <Typography
@@ -227,10 +231,23 @@ export default function cardGallery(props: CardGalleryProps) {
 
   const cards = cardGenerator();
 
-  const gridTemplateRows =
-    cards.length > 6
-    ? `repeat(${Math.floor(cards.length / 2)}, 33%)`
-    : "repeat(2, 33%)";
+  let gridTemplateColumns;
+  if (props.mediaQueries[Orientation.WIDTH][BreakpointKeys.md]) {
+    gridTemplateColumns = "1fr 1fr 1fr";
+  } else {
+    gridTemplateColumns = "1fr 1fr";
+  }
+
+  let gridAutoRows;
+  if (props.mediaQueries[Orientation.HEIGHT][BreakpointKeys.lg]) {
+    gridAutoRows = "30%";
+  } else if (props.mediaQueries[Orientation.HEIGHT][BreakpointKeys.md]) {
+    gridAutoRows = "40%";
+  } else if (props.mediaQueries[Orientation.HEIGHT][BreakpointKeys.sm]) {
+    gridAutoRows = "50%";
+  } else {
+    gridAutoRows = "60%";
+  }
 
   return (
     <div className={classes.container}>
@@ -241,7 +258,8 @@ export default function cardGallery(props: CardGalleryProps) {
       <div
         className={classes.grid}
         style={{
-          gridTemplateRows: gridTemplateRows,
+          gridAutoRows: gridAutoRows,
+          gridTemplateColumns: gridTemplateColumns,
         }}
       >
         {cards}
