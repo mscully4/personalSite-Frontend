@@ -28,15 +28,7 @@ const styles = makeStyles((theme: Theme) => ({
     gridTemplateColumns: "1fr",
     gridAutoRows: "40px 1fr",
     overflowY: "hidden",
-  },
-  title: {
-    textAlign: "center",
-    backgroundColor: theme.palette.primary.main,
-    color: theme.palette.primary.contrastText,
-    margin: "auto",
-    width: "50%",
-    borderRadius: 20,
-    fontSize: theme.typography.h5.fontSize,
+    alignItems: "center",
   },
   grid: {
     width: "100%",
@@ -250,20 +242,14 @@ export default function cardGallery(props: CardGalleryProps) {
   }
 
   return (
-    <div className={classes.container}>
-      <div className={classes.title}>
-        {granularitySwitcher(props.mapGranularity, "Destinations", "Place")}
-      </div>
-
-      <div
-        className={classes.grid}
-        style={{
-          gridAutoRows: gridAutoRows,
-          gridTemplateColumns: gridTemplateColumns,
-        }}
-      >
-        {cards}
-      </div>
+    <div
+      className={classes.grid}
+      style={{
+        gridAutoRows: gridAutoRows,
+        gridTemplateColumns: gridTemplateColumns,
+      }}
+    >
+      {cards}
     </div>
   );
 }
