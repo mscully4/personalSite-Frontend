@@ -8,7 +8,6 @@ export const lightTheme: Theme = createTheme({
     },
   },
 });
-console.log(lightTheme);
 
 export const foo = {
   tuftsBlue: "#1c7ad9",
