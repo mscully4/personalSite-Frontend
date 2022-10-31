@@ -8,7 +8,7 @@ import { getRandomSubarray } from "../utils/formulas";
 import { objectKeysSnakeCasetoCamelCase } from "../utils/backend";
 import Photo from "../types/photo";
 
-const NUMBER_OF_PHOTOS = 40;
+const NUMBER_OF_PHOTOS = 100;
 
 const styles = makeStyles((theme: Theme) => ({
   container: {
