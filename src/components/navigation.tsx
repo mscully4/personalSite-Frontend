@@ -3,6 +3,7 @@ import { makeStyles, Theme } from "@material-ui/core/styles";
 import { AppBar, Box, Toolbar, Typography } from "@material-ui/core";
 import { BreakpointKeys, Orientation } from "../utils/display";
 import { NavIcon, navIcons } from "../utils/images";
+import SvgIcon from "@mui/material/SvgIcon";
 
 const styles = makeStyles((theme: Theme) => ({
   navigationBar: {
@@ -25,16 +26,9 @@ const styles = makeStyles((theme: Theme) => ({
     alignItems: "center",
   },
   icon: {
-    width: "6vw",
-    maxWidth: 50,
-    height: "100%",
     "&:hover": {
       fill: theme.palette.primary.main,
     },
-  },
-  spacer: {
-    width: "100%",
-    height: "100%",
   },
 }));
 
@@ -45,21 +39,20 @@ interface NavigationProps {
 
 export default function Navigation(props: NavigationProps) {
   const classes = styles();
-  const maxIconHeight = props.height * 0.6;
 
   const createIcon = (navIcon: NavIcon) => {
     return (
       <a href={navIcon.href} title={navIcon.title} className={classes.card}>
-        <svg
-          className={clsx(classes.icon)}
-          style={{ maxHeight: maxIconHeight }}
-          xmlns="http://www.w3.org/2000/svg"
+        <SvgIcon
           viewBox={navIcon.viewBox}
+          fontSize={"large"}
+          htmlColor={"#000"}
+          className={classes.icon}
         >
           {navIcon.paths.map((path, i) => (
             <path key={i} d={path}></path>
           ))}
-        </svg>
+        </SvgIcon>
       </a>
     );
   };
