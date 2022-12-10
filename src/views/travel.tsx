@@ -2,7 +2,7 @@ import { useState, useEffect, SyntheticEvent } from "react";
 import clsx from "clsx";
 import { MapRef } from "react-map-gl";
 import { makeStyles, Theme } from "@material-ui/core/styles";
-import { Paper, useMediaQuery } from "@material-ui/core";
+import { Paper } from "@material-ui/core";
 import Map from "../components/map";
 import ImageViewer from "../components/imageViewer";
 import CardGallery from "../components/cardGallery";
@@ -20,7 +20,7 @@ import Destination from "../types/destination";
 import Place from "../types/place";
 import Photo from "../types/photo";
 import Album from "../types/album";
-import { BreakpointKeys, breakpoints, Orientation } from "../utils/display";
+import { BreakpointKeys, Orientation } from "../utils/display";
 
 const styles = makeStyles((theme: Theme) => ({
   background: {
