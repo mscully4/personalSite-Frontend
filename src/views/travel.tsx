@@ -79,6 +79,13 @@ export default function Travel(props: TravelProps) {
     if (window.innerHeight !== height) setHeight(window.innerHeight * 0.92);
   });
 
+  const setDestinationsSorted = (destinations: Destination[]) => {
+    const sortedDestinations = destinations.sort((a, b) => {
+      return a.country.localeCompare(b.country);
+    });
+    setDestinations(sortedDestinations);
+  };
+
   const setMapGranularity = (zoom: number) => {
     if (zoom > GRANULARITY_CUTOFF) {
       _setMapGranularity(GRANULARITIES.PLACES);
@@ -122,7 +129,7 @@ export default function Travel(props: TravelProps) {
             return objectKeysSnakeCasetoCamelCase(el);
           });
 
-          setDestinations(destinations);
+          setDestinationsSorted(destinations);
         });
     });
 
@@ -136,19 +143,28 @@ export default function Travel(props: TravelProps) {
         .json()
         .then((json) => json.map((el) => el.Entity))
         .then((entities) => {
+          // Some minor transformations on the Place objects are needed
           const places: Place[] = entities.map((place) => {
             place.latitude = parseFloat(place.latitude);
             place.longitude = parseFloat(place.longitude);
             return objectKeysSnakeCasetoCamelCase(place);
           });
-          const result = places.reduce((map, place) => {
-            const array = map[place.destinationId]
-              ? map[place.destinationId]
-              : [];
-            array.push(place);
-            map[place.destinationId] = array;
-            return map;
-          }, {});
+          // The API call will return a list of places, we convert the flat list of place
+          // into a map of Destination -> List<Place>
+          const result: Record<string, Place[]> = places.reduce(
+            (map, place) => {
+              const array = map[place.destinationId]
+                ? map[place.destinationId]
+                : [];
+              array.push(place);
+              const sortedArray = array.sort((a: Place, b: Place) => {
+                return a.name.localeCompare(b.name);
+              });
+              map[place.destinationId] = sortedArray;
+              return map;
+            },
+            {}
+          );
           setPlaces(result);
         });
     });
