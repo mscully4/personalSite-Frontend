@@ -1,9 +1,13 @@
 export const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_TOKEN;
 
-export const DEFAULT_CENTER = { lat: 40.7506, lng: -73.9935 }; // NYC!
-export const DEFAULT_ZOOM = 10;
-export const DEFAULT_PLACE_ZOOM = 12;
-export const GRANULARITY_CUTOFF = 11;
+export const DEFAULT_CENTER = { lat: 30.2672, lng: -97.7431 }; // Austin, Texas
+// With zoom, lower means zoomed out more and vice versa
+// The default zoom should be very low to give the user a view of most destinations
+export const DEFAULT_ZOOM = 3;
+// There are two granularities, Destinations & Places. This sets the cutoff
+export const GRANULARITY_CUTOFF = 10;
+// The default place zoom should be as zoomed out as possible without switching granularity
+export const DEFAULT_PLACE_ZOOM = GRANULARITY_CUTOFF + 1;
 
 export const MILES_FROM_CITY = 200; /*miles*/
 
